@@ -1,0 +1,340 @@
+/* --- Base & Fonts --- */
+:root {
+    --primary-color: #007bff; /* 主題色 */
+    --rgb-primary-color: 0, 123, 255; /* 主題色 RGB 值 */
+    --text-color: #e0e0e0;     /* 預設淺色文字 (用於玻璃卡片上) */
+    --dark-text: #333;        /* 深色文字 (用於淺色背景 或 需要高對比度的區域) */
+    --bg-color-alpha: rgba(255, 255, 255, 0.1); /* 預設玻璃卡片背景 */
+    --border-color-alpha: rgba(255, 255, 255, 0.2); /* 預設玻璃卡片邊框 */
+    --blur-intensity: 10px; /* 預設模糊強度 */
+    --shadow-color: rgba(0, 0, 0, 0.15);
+    --card-padding: 2rem;
+    --section-padding: 4rem 0;
+    /* Mobile specific adjustments can be added here or in media query */
+    --mobile-card-padding: 1.2rem;
+    --mobile-section-padding: 2.5rem 0;
+}
+
+/* ... (其他基本樣式保持不變) ... */
+
+h1 { font-size: 2.8rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.4rem; }
+
+/* ... (其他樣式保持不變) ... */
+
+
+/* --- Navbar --- */
+.navbar { /* Navbar 本身也是玻璃卡片 */
+    position: sticky;
+    top: 10px; /* Desktop top spacing */
+    left: 5%;
+    width: 90%;
+    z-index: 1001; /* 比手機打開的選單高 */
+    margin: 10px auto 0 auto;
+    padding: 0.8rem var(--card-padding); /* 內邊距 - Desktop uses variable */
+    /* Apply glass effect directly */
+    background: var(--bg-color-alpha);
+    backdrop-filter: blur(var(--blur-intensity));
+    -webkit-backdrop-filter: blur(var(--blur-intensity));
+    border-radius: 15px;
+    border: 1px solid var(--border-color-alpha);
+    box-shadow: 0 4px 30px var(--shadow-color);
+}
+
+/* ... (其他 Navbar 樣式保持不變) ... */
+
+/* Default Desktop Navigation Styles */
+#main-nav {
+    display: flex;
+    align-items: center;
+}
+/* ... (其他 Desktop Nav 樣式保持不變) ... */
+
+/* --- Hamburger Menu Styles --- */
+.hamburger {
+    display: none; /* Hidden on desktop */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1010; /* Above nav background */
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-color); /* Use light color matching nav text */
+    margin: 5px 0;
+    transition: all 0.3s ease-in-out;
+}
+
+/* ... (Hero, Sections, Grid, Forms, Buttons, Footer, Solution Detail etc. 保持不變) ... */
+
+
+/* --- Responsiveness & Mobile Menu --- */
+@media (max-width: 768px) {
+    /* --- General Mobile Adjustments --- */
+    :root {
+        --card-padding: var(--mobile-card-padding); /* Use mobile padding */
+        --section-padding: var(--mobile-section-padding); /* Use mobile padding */
+    }
+
+    h1 { font-size: 2rem; } /* Slightly smaller */
+    h2 { font-size: 1.6rem; } /* Slightly smaller */
+    h3 { font-size: 1.3rem; } /* Slightly smaller */
+
+    .container {
+        padding: 0 15px; /* Slightly reduce side padding */
+    }
+
+    .navbar {
+        /* Optional: Make navbar edge-to-edge on mobile */
+        /* width: 100%;
+        left: 0;
+        top: 0;
+        border-radius: 0;
+        margin-top: 0; */
+        /* Keep original floating style for now, adjust padding */
+        padding: 0.6rem 1rem; /* Smaller padding on mobile */
+        top: 5px; /* Slightly less space from top */
+        margin-top: 5px;
+    }
+
+    .nav-container {
+        /* Already correct: flex-direction: row; justify-content: space-between; align-items: center; */
+    }
+
+    .hamburger {
+        display: block; /* Show hamburger on mobile */
+    }
+
+    /* --- REVISED Mobile Navigation Dropdown Styles --- */
+    #main-nav {
+        display: none !important; /* Hidden by default, ensure override */
+        position: absolute;
+        /* Position below the navbar, adjust based on navbar's final 'top' + 'height' */
+        top: 100%;
+        left: 0;
+        width: 100%;
+        /* === STYLE CHANGE: Match desktop glass effect === */
+        background: var(--bg-color-alpha);
+        backdrop-filter: blur(var(--blur-intensity));
+        -webkit-backdrop-filter: blur(var(--blur-intensity));
+        border: 1px solid var(--border-color-alpha);
+        /* === END STYLE CHANGE === */
+        border-top: none; /* No top border needed if attached */
+        z-index: 1000; /* Below navbar (1001), above content */
+        padding: 0;
+        box-sizing: border-box;
+        /* Apply border-radius only to bottom corners */
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease-out, padding 0.4s ease-out, background 0.3s ease, backdrop-filter 0.3s ease;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #main-nav.nav-open {
+        display: flex !important; /* Show when open */
+        max-height: 80vh; /* Limit height, allow more space if needed */
+        padding: 0.5rem 0 1rem 0; /* Add padding when open */
+        overflow-y: auto; /* Allow scrolling if content exceeds height */
+    }
+
+    #main-nav ul {
+        flex-direction: column;
+        text-align: center;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        margin-bottom: 0.5rem; /* Space before lang button */
+    }
+
+    #main-nav ul li {
+        margin: 0;
+        width: 100%;
+    }
+
+    /* --- REVISED Mobile menu link styles --- */
+    #main-nav ul li a {
+        /* === STYLE CHANGE: Use light text color === */
+        color: var(--text-color);
+        /* === END STYLE CHANGE === */
+        font-size: 1.1rem;
+        font-weight: 500; /* Slightly less bold than desktop */
+        padding: 0.9rem 1rem; /* Increase tap area */
+        display: block;
+        width: 100%;
+        margin: 0;
+        transition: background-color 0.2s ease, color 0.2s ease;
+        border-bottom: none; /* Remove desktop border */
+        background-color: transparent; /* Ensure transparent background */
+    }
+
+    /* --- REVISED Mobile menu link hover/active styles --- */
+    #main-nav ul li a:hover,
+    #main-nav ul li a.active { /* Assuming you add 'active' class via JS */
+        /* === STYLE CHANGE: Subtle background highlight === */
+        background-color: rgba(255, 255, 255, 0.1); /* Subtle light highlight */
+        color: #fff; /* Make text slightly brighter on hover/active */
+        /* Alternative: Use primary color with opacity */
+        /* background-color: rgba(var(--rgb-primary-color), 0.2); */
+        /* === END STYLE CHANGE === */
+    }
+
+    /* Mobile menu language button styles */
+    #main-nav .lang-button {
+        margin: 1rem auto; /* Center button, add more vertical space */
+        display: block;
+        padding: 0.7rem 1.5rem; /* Slightly larger button */
+        font-size: 1rem;
+    }
+
+    /* --- REVISED Hamburger 'X' state styles --- */
+    .hamburger.active span {
+        /* === STYLE CHANGE: Use light color for 'X' lines === */
+        background-color: var(--text-color); /* Light 'X' lines */
+    }
+    .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* --- Adjust Grid Gap --- */
+    .services-grid {
+        gap: 1rem; /* Reduce gap slightly */
+    }
+
+    /* --- Form Adjustments --- */
+    .contact-form-container {
+        margin: 1rem auto; /* Reduce top margin */
+    }
+    .form-group {
+        margin-bottom: 1rem; /* Reduce spacing */
+    }
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="tel"],
+    .form-group select,
+    .form-group textarea {
+        padding: 0.7rem; /* Slightly smaller padding */
+        font-size: 0.95rem;
+    }
+
+    /* --- Button Adjustments --- */
+    .cta-button {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    /* --- Footer Adjustments --- */
+    .footer {
+        padding: 1rem 0;
+        margin-top: 2rem;
+    }
+
+} /* End of @media (max-width: 768px) */
+
+/* --- Desktop Styles Reset/Overrides --- */
+/* Looks mostly correct, ensure mobile adjustments are reset */
+@media (min-width: 769px) {
+    /* Reset mobile padding variables if needed, though overrides below should suffice */
+    :root {
+       /* No need to reset here if base values are desktop */
+    }
+
+    /* Reset Font sizes if they were changed directly */
+     h1 { font-size: 2.8rem; }
+     h2 { font-size: 2rem; }
+     h3 { font-size: 1.4rem; }
+
+    .navbar {
+        /* Restore desktop padding if it was changed */
+         padding: 0.8rem var(--card-padding); /* Use the variable which is now 2rem */
+         top: 10px;
+         margin-top: 10px;
+         /* Restore other potential changes like width/radius if they were uncommented */
+    }
+
+    #main-nav {
+        display: flex; /* Use flex, !important likely not needed now */
+        position: static;
+        height: auto;
+        width: auto;
+        background: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        padding-top: 0;
+        flex-direction: row; /* Horizontal */
+        align-items: center;
+        overflow: visible; /* Changed from overflow-y */
+        border-top: none;
+        border-radius: 0;
+        box-shadow: none;
+        max-height: none;
+        transition: none; /* Disable mobile transitions */
+    }
+
+    #main-nav ul {
+        flex-direction: row;
+        text-align: left;
+        width: auto;
+        margin-bottom: 0;
+        list-style: none; /* Ensure no list style */
+        padding: 0; /* Reset padding */
+        margin-left: 0; /* Reset mobile margin */
+    }
+
+    #main-nav ul li {
+        margin: 0;
+        margin-left: 1.5rem; /* Restore desktop spacing */
+        width: auto;
+    }
+
+    #main-nav ul li a {
+        color: var(--text-color); /* Restore light text */
+        font-size: 1rem;
+        font-weight: 600; /* Restore desktop weight */
+        padding: 0;
+        padding-bottom: 5px; /* Space for border */
+        border-bottom: 2px solid transparent; /* Reset border */
+        width: auto;
+        margin: 0;
+        background-color: transparent;
+        display: inline-block; /* Or block? inline-block usually for horizontal */
+        transition: border-color 0.3s ease, color 0.3s ease; /* Restore transitions */
+    }
+     #main-nav ul li a:hover,
+     #main-nav ul li a.active {
+        color: #fff; /* Hover/active color */
+        border-bottom-color: var(--primary-color); /* Hover/active border */
+        background-color: transparent; /* Ensure no background */
+     }
+
+    #main-nav .lang-button {
+        margin: 0; /* Reset mobile margin */
+        margin-left: 1.5rem;
+        display: inline-block; /* Restore display */
+        padding: 0.5rem 1rem; /* Restore padding */
+        font-size: 1rem; /* Restore font size */
+    }
+
+    .hamburger {
+        display: none; /* Hide hamburger */
+    }
+
+     /* Restore Grid Gap */
+    .services-grid {
+        gap: 1.5rem;
+    }
+    /* Restore other mobile-specific changes if necessary */
+
+} /* End of @media (min-width: 769px) */
+
+/* ... (Interactivity, Form Status styles remain the same) ... */

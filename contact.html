@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-lang-key="contact_page_title">Contact Us - YourBrand AI</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+     <header class="navbar glass-card">
+        <div class="container nav-container">
+            <a href="index.html" class="logo" data-lang-key="company_name">YourBrand</a>
+            <button class="hamburger" id="hamburger-button" aria-label="Toggle menu" aria-expanded="false">
+                <span></span> <span></span> <span></span>
+            </button>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="index.html" data-lang-key="nav_home">Home</a></li>
+                    <li><a href="solutions.html" data-lang-key="nav_solutions">Solutions</a></li>
+                     <li><a href="contact.html" class="active" data-lang-key="nav_contact">Contact</a></li>
+                </ul>
+                <button id="lang-switcher" class="lang-button">中文</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="container section-padding">
+            <h1 class="text-center section-title" data-lang-key="contact_main_title">Get in Touch</h1>
+            <p class="text-center subtitle" data-lang-key="contact_intro">Ready to start your AI transformation journey? Let's talk!</p>
+
+            <div class="contact-form-container glass-card">
+                <form id="contact-form" action="https://formsubmit.co/verj.vincent@gmail.com" method="POST">
+                     <input type="hidden" name="_subject" value="來自 YourBrand AI 網站的新諮詢!">
+
+                    <div class="form-group">
+                        <label for="company-name" data-lang-key="form_company_name">Company Name</label>
+                        <input type="text" id="company-name" name="companyName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-person" data-lang-key="form_contact_person">Contact Person</label>
+                        <input type="text" id="contact-person" name="contactPerson" required>
+                    </div>
+                     <div class="form-group">
+                        <label for="email" data-lang-key="form_email">Email</label>
+                        <input type="email" id="email" name="_replyto" required> </div>
+                    <div class="form-group">
+                        <label for="phone" data-lang-key="form_phone">Phone (Optional)</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="inquiry-type" data-lang-key="form_inquiry_type">Inquiry Type</label>
+                        <select id="inquiry-type" name="inquiryType" required>
+                            <option value="" data-lang-key="form_select_option">-- Please Select --</option>
+                            <option value="consultation" data-lang-key="form_option_consultation">Solution Consultation</option>
+                            <option value="demo" data-lang-key="form_option_demo">Request a Demo</option>
+                            <option value="technical" data-lang-key="form_option_technical">Technical Question</option>
+                            <option value="partnership" data-lang-key="form_option_partnership">Partnership Inquiry</option>
+                            <option value="other" data-lang-key="form_option_other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                         <label for="message" data-lang-key="form_message">Briefly describe your needs</label>
+                        <textarea id="message" name="message" rows="4" required></textarea>
+                    </div>
+                     <button type="submit" class="cta-button" data-lang-key="form_submit_button">Send Inquiry</button>
+                </form>
+                 <p id="form-response" class="form-status"></p> </div>
+
+            <div class="contact-info text-center glass-card content-card">
+                 <h3 data-lang-key="contact_other_methods">Other Ways to Reach Us</h3>
+                 <p><strong data-lang-key="contact_email_label">Email:</strong> <a href="mailto:info@yourcompany.com">info@yourcompany.com</a></p> <p><strong data-lang-key="contact_phone_label">Phone:</strong> <a href="tel:+88600000000">+886-XXX-XXX-XXX</a></p> <p><i data-lang-key="contact_response_time">We typically respond within one business day.</i></p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p data-lang-key="footer_text">&copy; 2025 YourBrand AI. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/content.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
