@@ -8,20 +8,90 @@
     --border-color-alpha: rgba(255, 255, 255, 0.2); /* 預設玻璃卡片邊框 */
     --blur-intensity: 10px; /* 預設模糊強度 */
     --shadow-color: rgba(0, 0, 0, 0.15);
-    --card-padding: 2rem;
-    --section-padding: 4rem 0;
-    /* Mobile specific adjustments can be added here or in media query */
-    --mobile-card-padding: 1.2rem;
-    --mobile-section-padding: 2.5rem 0;
+    --card-padding: 2rem;       /* Default Desktop Card Padding */
+    --section-padding: 4rem 0;  /* Default Desktop Section Padding */
+    /* Mobile specific adjustments (values used in media query) */
+    --mobile-card-padding: 1.5rem;    /* Adjusted for better mobile spacing */
+    --mobile-section-padding: 3rem 0; /* Adjusted for better mobile spacing */
 }
 
-/* ... (其他基本樣式保持不變) ... */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', 'Noto Sans TC', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color); /* 預設頁面文字顏色為淺色 */
+    background: url('../assets/images/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px; /* Desktop container side padding */
+}
+
+h1, h2, h3 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
 
 h1 { font-size: 2.8rem; }
 h2 { font-size: 2rem; }
 h3 { font-size: 1.4rem; }
 
-/* ... (其他樣式保持不變) ... */
+p { margin-bottom: 1rem; }
+a { color: var(--primary-color); text-decoration: none; transition: color 0.3s ease; }
+a:hover { color: #0056b3; } /* 頁面中非導航鏈接的 hover */
+ul { list-style: none; } /* 全局移除列表符號，後面會針對性添加 */
+
+/* --- Glassmorphism Card Effect --- */
+.glass-card {
+    background: var(--bg-color-alpha);
+    backdrop-filter: blur(var(--blur-intensity));
+    -webkit-backdrop-filter: blur(var(--blur-intensity));
+    border-radius: 15px;
+    border: 1px solid var(--border-color-alpha);
+    box-shadow: 0 4px 30px var(--shadow-color);
+    padding: var(--card-padding); /* Uses variable for padding */
+    margin-bottom: 2rem;
+    color: var(--text-color); /* 卡片內文字預設為淺色 */
+}
+
+.glass-card strong { /* 卡片內的 strong 標籤 */
+    color: #f0f0f0; /* 比普通文字稍亮 */
+    font-weight: 600;
+}
+
+/* --- Specific Component Styling --- */
+
+/* Styling for the list within the "Why Us" card on index.html */
+/* (Applied globally unless moved into media query) */
+.why-us .glass-card ul {
+    list-style: disc; /* Add bullets */
+    margin-top: 1rem;  /* Space above list */
+    margin-bottom: 0; /* Reset bottom margin */
+    margin-left: 20px; /* Indent for bullets */
+    padding-left: 0;   /* Reset browser default padding */
+    color: var(--text-color); /* Ensure list text uses the card's default light color */
+}
+
+.why-us .glass-card ul li {
+    margin-bottom: 0.6rem; /* Space between list items */
+}
+
+/* Note: .why-us .glass-card ul li strong will inherit styling from .glass-card strong */
+
+/* --- End Specific Component Styling --- */
 
 
 /* --- Navbar --- */
@@ -42,14 +112,75 @@ h3 { font-size: 1.4rem; }
     box-shadow: 0 4px 30px var(--shadow-color);
 }
 
-/* ... (其他 Navbar 樣式保持不變) ... */
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px; /* Can be larger than main container if needed */
+    width: 100%;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-color); /* Logo 顏色 */
+    flex-shrink: 0;
+}
 
 /* Default Desktop Navigation Styles */
 #main-nav {
     display: flex;
     align-items: center;
 }
-/* ... (其他 Desktop Nav 樣式保持不變) ... */
+
+#main-nav ul {
+    display: flex;
+    align-items: center;
+    list-style: none; /* Redundant due to global reset, but safe */
+}
+
+#main-nav ul li {
+    margin-left: 1.5rem;
+}
+
+/* Desktop navigation link styles */
+#main-nav ul li a {
+    color: var(--text-color); /* 桌面導航鏈接淺色 */
+    font-weight: 600;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease, color 0.3s ease;
+    background-color: transparent; /* 確保無背景色 */
+}
+
+#main-nav ul li a:hover,
+#main-nav ul li a.active {
+    color: #fff; /* Highlight active/hover */
+    border-bottom-color: var(--primary-color);
+    background-color: transparent; /* 確保無背景色 */
+}
+
+/* Language button common styles */
+.lang-button {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+}
+
+.lang-button:hover {
+    background-color: #0056b3;
+}
+
+/* Language button position within desktop nav */
+#main-nav .lang-button {
+     margin-left: 1.5rem;
+}
 
 /* --- Hamburger Menu Styles --- */
 .hamburger {
@@ -70,15 +201,270 @@ h3 { font-size: 1.4rem; }
     transition: all 0.3s ease-in-out;
 }
 
-/* ... (Hero, Sections, Grid, Forms, Buttons, Footer, Solution Detail etc. 保持不變) ... */
+
+/* --- Hero Section --- */
+.hero-section {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--section-padding); /* Uses variable */
+}
+
+.hero-section h1 {
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    margin-bottom: 1.5rem;
+}
+
+.hero-section .subtitle {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto 2rem auto;
+    color: #f0f0f0;
+}
+
+/* --- General Sections & Content Cards --- */
+.section-padding {
+    padding: var(--section-padding); /* Uses variable */
+}
+
+.section-title {
+    margin-bottom: 3rem;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.content-card {
+    /* Styles for generic content cards if needed */
+    /* Specific content styling like .why-us is handled elsewhere */
+}
+
+/* --- Services Grid (Index Page) --- */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem; /* Desktop gap */
+}
+
+.service-item {
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Inherits .glass-card styles */
+}
+
+.service-item h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+.service-item p {
+    margin-bottom: 1rem;
+    min-height: 40px; /* Helps align cards with varying text length */
+}
+
+.service-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Solutions Page Cards (Summary Cards) --- */
+.solution-card { /* Styles for cards on solutions.html */
+    margin-bottom: 2.5rem;
+    /* Inherits .glass-card styles */
+}
+
+.solution-card h2 {
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--border-color-alpha);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.solution-card strong { /* Labels like "Pain Point:" */
+    display: inline-block;
+    margin-top: 0.8rem;
+    margin-right: 0.5rem;
+    /* Uses default .glass-card strong color: #f0f0f0 */
+}
+.solution-card ul { /* Feature list on summary card */
+    list-style: disc;
+    margin-left: 20px; /* Indent for bullets */
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    padding-left: 0;
+    color: var(--text-color); /* List text color on summary card */
+}
+.solution-card ul li{
+     margin-bottom: 0.5rem; /* Space between list items */
+}
 
 
+/* --- Contact Form --- */
+.contact-form-container {
+    max-width: 700px;
+    margin: 2rem auto;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #f0f0f0;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--border-color-alpha);
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff; /* Input text color */
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #ccc;
+}
+
+.form-group select {
+     appearance: none;
+     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23e0e0e0' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+     background-repeat: no-repeat;
+     background-position: right 0.8rem center;
+     background-size: 1em;
+}
+
+.form-group select option {
+    background-color: #334; /* Darker background for options dropdown */
+    color: var(--text-color);
+}
+
+
+/* --- Buttons --- */
+.cta-button {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 0.8rem 1.8rem;
+    border-radius: 5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.cta-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* --- Footer --- */
+.footer {
+    background: rgba(0, 0, 0, 0.6);
+    color: #ccc;
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: 3rem;
+}
+
+.footer a {
+    color: var(--primary-color);
+}
+
+
+/* --- Solution Detail Page Styles --- */
+.solution-detail-card { /* Styles for cards on solutions/*.html pages */
+    padding: var(--card-padding); /* Uses variable */
+    /* Uses .glass-card base styles */
+}
+
+.solution-detail-card h1 {
+    color: #fff;
+    font-size: 2.5rem;
+    text-align: center;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+.solution-detail-card h2 { /* Subtitle */
+    color: #eee;
+    font-size: 1.6rem;
+    font-weight: 600;
+    text-align: center;
+    margin-top: -1rem;
+    margin-bottom: 2.5rem;
+}
+
+.solution-detail-card h3 { /* Section Titles */
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 3rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border-color-alpha);
+}
+
+/* CORRECTED: Detail page text made dark for readability on light glass */
+/* NOTE: This assumes the background behind detail cards might be lighter, */
+/* or the card itself needs higher contrast text */
+.solution-detail-card p {
+    color: var(--dark-text, #333); /* Dark body text */
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.solution-detail-card ul {
+    color: var(--dark-text, #333); /* Dark list text */
+    list-style: disc;
+    margin-left: 25px;
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+    padding-left: 0; /* Reset browser default */
+}
+
+.solution-detail-card li {
+    margin-bottom: 0.8rem;
+    /* Inherits dark color from ul */
+}
+
+/* CORRECTED: Strong tags within dark text should be very dark/black */
+.solution-detail-card li strong,
+.solution-detail-card p strong {
+    color: #111; /* Very dark gray/black for emphasis */
+    font-weight: 700;
+}
+
+.solution-detail-card .cta-button {
+    margin-top: 2rem;
+}
+
+
+/* =============================================== */
 /* --- Responsiveness & Mobile Menu --- */
+/* =============================================== */
 @media (max-width: 768px) {
     /* --- General Mobile Adjustments --- */
     :root {
-        --card-padding: var(--mobile-card-padding); /* Use mobile padding */
-        --section-padding: var(--mobile-section-padding); /* Use mobile padding */
+        /* Use mobile padding variables */
+        --card-padding: var(--mobile-card-padding);
+        --section-padding: var(--mobile-section-padding);
     }
 
     h1 { font-size: 2rem; } /* Slightly smaller */
@@ -89,21 +475,19 @@ h3 { font-size: 1.4rem; }
         padding: 0 15px; /* Slightly reduce side padding */
     }
 
+    /* --- Mobile Navbar Adjustments --- */
     .navbar {
-        /* Optional: Make navbar edge-to-edge on mobile */
-        /* width: 100%;
-        left: 0;
-        top: 0;
-        border-radius: 0;
-        margin-top: 0; */
         /* Keep original floating style for now, adjust padding */
         padding: 0.6rem 1rem; /* Smaller padding on mobile */
         top: 5px; /* Slightly less space from top */
         margin-top: 5px;
+        /* Optional: Make navbar edge-to-edge on mobile */
+        /* width: 100%; left: 0; top: 0; border-radius: 0; margin-top: 0; */
     }
 
     .nav-container {
-        /* Already correct: flex-direction: row; justify-content: space-between; align-items: center; */
+        /* flex-direction: row; justify-content: space-between; align-items: center; */
+        /* ^^^ Already correct by default flex behavior */
     }
 
     .hamburger {
@@ -114,7 +498,7 @@ h3 { font-size: 1.4rem; }
     #main-nav {
         display: none !important; /* Hidden by default, ensure override */
         position: absolute;
-        /* Position below the navbar, adjust based on navbar's final 'top' + 'height' */
+        /* Position below the navbar */
         top: 100%;
         left: 0;
         width: 100%;
@@ -208,7 +592,7 @@ h3 { font-size: 1.4rem; }
 
     /* --- Adjust Grid Gap --- */
     .services-grid {
-        gap: 1rem; /* Reduce gap slightly */
+        gap: 1.2rem; /* Adjusted gap */
     }
 
     /* --- Form Adjustments --- */
@@ -241,39 +625,44 @@ h3 { font-size: 1.4rem; }
 
 } /* End of @media (max-width: 768px) */
 
-/* --- Desktop Styles Reset/Overrides --- */
-/* Looks mostly correct, ensure mobile adjustments are reset */
-@media (min-width: 769px) {
-    /* Reset mobile padding variables if needed, though overrides below should suffice */
-    :root {
-       /* No need to reset here if base values are desktop */
-    }
 
-    /* Reset Font sizes if they were changed directly */
+/* =============================================== */
+/* --- Desktop Styles Reset/Overrides --- */
+/* =============================================== */
+@media (min-width: 769px) {
+    /* Reset mobile padding variables implicitly by base :root taking precedence */
+    /* (No need to explicitly reset --card-padding/--section-padding here) */
+
+    /* Reset Font sizes if they were changed directly in mobile */
      h1 { font-size: 2.8rem; }
      h2 { font-size: 2rem; }
      h3 { font-size: 1.4rem; }
 
+     .container {
+        padding: 0 20px; /* Restore desktop container padding */
+     }
+
     .navbar {
-        /* Restore desktop padding if it was changed */
-         padding: 0.8rem var(--card-padding); /* Use the variable which is now 2rem */
-         top: 10px;
-         margin-top: 10px;
+        /* Restore desktop padding (uses --card-padding which is now 2rem) */
+         padding: 0.8rem var(--card-padding);
+         top: 10px; /* Restore desktop top */
+         margin-top: 10px; /* Restore desktop margin */
          /* Restore other potential changes like width/radius if they were uncommented */
     }
 
+    /* Restore Desktop Navigation */
     #main-nav {
-        display: flex; /* Use flex, !important likely not needed now */
+        display: flex;
         position: static;
         height: auto;
         width: auto;
         background: none;
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
-        padding-top: 0;
+        padding: 0; /* Reset potential mobile padding */
         flex-direction: row; /* Horizontal */
         align-items: center;
-        overflow: visible; /* Changed from overflow-y */
+        overflow: visible;
         border-top: none;
         border-radius: 0;
         box-shadow: none;
@@ -286,13 +675,13 @@ h3 { font-size: 1.4rem; }
         text-align: left;
         width: auto;
         margin-bottom: 0;
-        list-style: none; /* Ensure no list style */
-        padding: 0; /* Reset padding */
-        margin-left: 0; /* Reset mobile margin */
+        list-style: none;
+        padding: 0;
+        margin-left: 0; /* Reset just in case */
     }
 
     #main-nav ul li {
-        margin: 0;
+        margin: 0; /* Reset base margin */
         margin-left: 1.5rem; /* Restore desktop spacing */
         width: auto;
     }
@@ -301,13 +690,13 @@ h3 { font-size: 1.4rem; }
         color: var(--text-color); /* Restore light text */
         font-size: 1rem;
         font-weight: 600; /* Restore desktop weight */
-        padding: 0;
+        padding: 0; /* Reset mobile padding */
         padding-bottom: 5px; /* Space for border */
         border-bottom: 2px solid transparent; /* Reset border */
         width: auto;
         margin: 0;
         background-color: transparent;
-        display: inline-block; /* Or block? inline-block usually for horizontal */
+        display: inline-block;
         transition: border-color 0.3s ease, color 0.3s ease; /* Restore transitions */
     }
      #main-nav ul li a:hover,
@@ -331,10 +720,54 @@ h3 { font-size: 1.4rem; }
 
      /* Restore Grid Gap */
     .services-grid {
-        gap: 1.5rem;
+        gap: 1.5rem; /* Restore desktop gap */
     }
+
+    /* Restore Form Input Padding */
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="tel"],
+    .form-group select,
+    .form-group textarea {
+        padding: 0.8rem;
+        font-size: 1rem;
+    }
+
+    /* Restore Button Padding */
+    .cta-button {
+        padding: 0.8rem 1.8rem;
+        font-size: 1rem; /* Check if base needs setting or use default */
+    }
+
+     /* Restore Footer Padding & Margin */
+    .footer {
+        padding: 1.5rem 0;
+        margin-top: 3rem;
+    }
+
     /* Restore other mobile-specific changes if necessary */
 
 } /* End of @media (min-width: 769px) */
 
-/* ... (Interactivity, Form Status styles remain the same) ... */
+
+/* --- Interactivity: Simple fade-in --- */
+body {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+body.loaded {
+    opacity: 1;
+}
+
+/* --- Style for form status message --- */
+.form-status {
+    margin-top: 1rem;
+    font-weight: bold;
+}
+.form-status.success {
+    color: #28a745;
+}
+.form-status.error {
+    color: #dc3545;
+}
