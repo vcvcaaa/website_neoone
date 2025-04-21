@@ -231,7 +231,6 @@ ul { list-style: none; }
     width: 25px;
     height: 3px;
     /* === 修改這裡 === */
-    /* background-color: var(--text-color-light); */ /* 原本是淺色 */
     background-color: var(--text-color-on-glass); /* 改為玻璃卡片上的深色文字 */
     margin: 5px 0;
     transition: all 0.3s ease-in-out;
@@ -240,7 +239,7 @@ ul { list-style: none; }
 /* Hamburger 'X' state styles */
 .hamburger.active span {
      /* === 修改這裡 === */
-    /* background-color: var(--text-color-light); */ /* 原本是淺色 */
+    
     background-color: var(--text-color-on-glass); /* X 狀態也改為深色 */
 }
 /* ... transform styles ... */
@@ -609,7 +608,7 @@ ul { list-style: none; }
     }
 
     #main-nav ul li a {
-        color: var(--text-color-light); /* Mobile menu links use light color */
+        --text-color-light: #cccccc;
         font-size: 1.1rem;
         font-weight: 500;
         padding: 0.9rem 1rem;
@@ -640,7 +639,7 @@ ul { list-style: none; }
 
     /* Hamburger 'X' state styles */
     .hamburger.active span {
-        background-color: var(--text-color-light); /* Light 'X' lines */
+        background-color: var(--text-color-on-glass);  /* 改為您要的深色變數 */
     }
     .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
     .hamburger.active span:nth-child(2) { opacity: 0; }
